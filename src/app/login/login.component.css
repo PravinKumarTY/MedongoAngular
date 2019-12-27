@@ -1,0 +1,22 @@
+#loginForm{
+    border:1px solid black;
+    margin-top: 10rem;
+    height: 300px;
+    width: 500px;
+    border-radius: 5px;
+}
+
+#emailText{
+    margin-top: 20px;
+    margin-left: 40px;
+    border: none;
+    border-bottom: 1px solid black;
+    width: 400px;
+}
+#passwordText{
+    margin-top: 20px;
+    margin-left: 40px;
+    border: none;
+    border-bottom: 1px solid black;
+    width: 400px;
+}

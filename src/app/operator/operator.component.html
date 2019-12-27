@@ -1,0 +1,151 @@
+
+    <div class="col-md-12 row mt-4">
+
+        <div class="col-md-4">
+            <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="showRegPatForm()">Register
+                Patient</button>
+            <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="showViewPatientDiv()">View All Registered Patients</button>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card" id="patRegFormId" *ngIf="registerPatForm">
+                <div class="card-header">
+                   <h4>Patient Registration Form</h4>
+                </div>
+                <div class="card-body">
+        
+                    <form action="" method="POST" [formGroup]="form" (ngSubmit)="registerPatient(form)">
+        
+        
+                        <div class="form-group">
+                            <input type="text" formControlName="patName" id="patRegNameId"  class="form-control"
+                                placeholder="Patient Name">
+                        </div>
+        
+                        <div class="form-group">
+                            <textarea class="form-control" rows="2" formControlName="address" id="patRegAddressId" placeholder="Address"></textarea>
+                        </div>
+        
+                        <div class="form-group">
+                            <input type="email" name='email' formControlName="email" id="patRegemailId" class="form-control" placeholder="Email Id">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" name='phoneNo' formControlName="phoneNo" id="patRegphoneNoId" class="form-control"
+                                placeholder="Phone No">
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" name="gender" formControlName="gender" id="" value="Male"> Male <input type="radio" name="gender" formControlName="gender" id="" value="Female"> Female
+                        </div>
+        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="date" formControlName="dob" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select formControlName="doctors" class="form-control" id="doctors" aria-placeholder="hjjkhk">
+                                        <option *ngFor="let doctor of doctors; let i = index" [value]="doctors[i].userId">
+                                          {{doctors[i].userName}}
+                                        </option>
+                                    </select>   
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text"  formControlName="age" id="patRegageId" class="form-control" placeholder="Age">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text"  formControlName="height" id="patRegheightId" class="form-control"
+                                        placeholder="Height">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text" formControlName="bloodPressure" id="patRegbpId" class="form-control"
+                                        placeholder="Blood Pressure">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text" formControlName="respiratoryRate" id="patRegrrId" class="form-control"
+                                        placeholder="Respiratory Rate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" formControlName="feverType" id="patRegfeverTypeId" class="form-control"
+                                        placeholder="Fever">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" formControlName="symptoms" id="patRegsymptomsId" class="form-control"
+                                        placeholder="Symptoms">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-outline-primary" style="margin-left:10px;" value="Create Consult">
+                                </div>
+                                <div class="form-group">
+                                    <input type="reset" class="btn btn-outline-secondary" style="margin-left:10px;" value="      Reset     ">
+                                </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--PatientList Info-->
+            <div class="card" *ngIf="viewPatData">
+                <div class="card-header">
+                   <h4>Consulted Patient Details</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSource">
+                
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="position">
+                                <th mat-header-cell *matHeaderCellDef> No. </th>
+                                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                            </ng-container>
+                
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef> Name </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
+                
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="weight">
+                                <th mat-header-cell *matHeaderCellDef> Weight </th>
+                                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                            </ng-container>
+                
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="symbol">
+                                <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                            </ng-container>
+                
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>

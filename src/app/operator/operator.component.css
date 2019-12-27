@@ -1,0 +1,9 @@
+#patRegNameId,#patRegAddressId,#patRegemailId,#patRegphoneNoId,#patRegageId,#patRegheightId,#patRegbpId,#patRegrrId,#patRegfeverTypeId,#patRegsymptomsId,#doctors{
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+#patRegFormId{
+    
+    margin-left: 10rem;
+}
