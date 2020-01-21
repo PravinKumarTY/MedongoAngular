@@ -1,10 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
-import { of } from 'rxjs';
 import { MedongoServiceService } from '../medongo-service.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-
 @Component({
   selector: 'app-operator',
   templateUrl: './operator.component.html',
@@ -15,10 +11,7 @@ export class OperatorComponent implements OnInit {
   doctors:any = [];
   patients:any=[];
 
-  constructor(private formBuilder: FormBuilder,private medongoService:MedongoServiceService) { 
-  
-    
-  }
+  constructor(private formBuilder: FormBuilder,private medongoService:MedongoServiceService) {  }
 
   form = this.formBuilder.group({
     patName:[''],
@@ -33,7 +26,7 @@ export class OperatorComponent implements OnInit {
     respiratoryRate:[''],
     feverType:[''],
     symptoms:[''],
-    doctors: ['']
+    doctorId: ['']
   });
 
   registerPatForm=false;
@@ -53,8 +46,7 @@ export class OperatorComponent implements OnInit {
     this.viewPatData=true;
     this.registerPatForm=false;
     this.medongoService.viewPatientDetails().subscribe(res=>{
-       this.patients=res;
-      console.log(this.patients);
+       this.patients=res.patInfoList;
     })
 
   }
@@ -63,18 +55,20 @@ export class OperatorComponent implements OnInit {
    console.log(patRegistrationForm.value);
    this.medongoService.registerPatient(patRegistrationForm.value).subscribe(resData=>{
      console.log(resData);
+     if(resData.status=='success'){
+      alert('Consult Created Successfully.')
+      patRegistrationForm.reset();
+      this.registerPatForm=false;
+      this.showViewPatientDiv();
+     }
+     
    },err=>{
      console.log(err)
    })
   }
-
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource();
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
+  
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+   this.showViewPatientDiv();
   }
 
 }

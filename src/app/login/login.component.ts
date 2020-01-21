@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     this.medongoService.userLogin(userLoginForm.value).subscribe(resData => {
        if(resData.statusCode===200){
          this.medongoService.selectedUser=resData.userInfoList[0];
+         localStorage.setItem('userId',this.medongoService.selectedUser.userId);
          if(this.medongoService.selectedUser.userRole==='admin'){
              this.router.navigateByUrl('/admin');
          }else if(this.medongoService.selectedUser.userRole==='operator'){

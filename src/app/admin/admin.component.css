@@ -1,0 +1,10 @@
+#userNameId,#userEmailId,#phoneNoId,#userRoleId,#adharIdId,#panIdId,#voterIdId{
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+#vendorNameId,#blockId,#pinCodeId,#doctors{
+    border: none;
+    border-bottom: 1px solid black;
+
+}

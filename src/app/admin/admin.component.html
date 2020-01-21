@@ -1,1 +1,324 @@
-<p>admin works!</p>
+<div class="col-md-12 row mt-4">
+    <div class="col-md-2">
+        <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="showUserForm()">Add User</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="showVendorForm()">Add Vendors</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="showViewReportCard()">Daily
+            Reports</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="showViewInventoryCard()">Medicine
+            Report</button>
+    </div>
+    <div class="col-md-8">
+        <div class="card" style="margin-left: 10rem;" id="" *ngIf="addUserForm">
+            <div class="card-header">
+                <h4>Add User</h4>
+            </div>
+
+            <div class="card-body">
+
+                <form action="" method="POST" [formGroup]="form" (ngSubmit)="registerUser()">
+
+
+                    <div class="form-group">
+                        <input type="text" formControlName="userName" id="userNameId" class="form-control"
+                            placeholder="User Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name='userEmail' formControlName="userEmail" id="userEmailId"
+                            class="form-control" placeholder="Email Id">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name='phoneNo' formControlName="phoneNo" id="phoneNoId"
+                            class="form-control" placeholder="Phone No">
+                    </div>
+                    <div class="form-group">
+                        <input type="radio" name="gender" formControlName="gender" id="" value="Male"> Male <input
+                            type="radio" name="gender" formControlName="gender" id="" value="Female"> Female
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="date" formControlName="dob" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="userRole" class="form-control" id="userRoleId">
+                                    <option value="doctor">Doctor</option>
+                                    <option value="operator">Operator</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="vendorId" class="form-control" id="userRoleId">
+                                    <option *ngFor="let subcenter of subcenters; let i = index"
+                                        [value]="subcenters[i].vendorId">
+                                        {{subcenters[i].vendorName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" formControlName="adharId" id="adharIdId" class="form-control"
+                                    placeholder="Adhar Id">
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" formControlName="panId" id="panIdId" class="form-control"
+                                    placeholder="Pan Card">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" formControlName="voterId" id="voterIdId" class="form-control"
+                                    placeholder="Voter Id">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-outline-primary" style="margin-left:10px;"
+                                value="Add User">
+                        </div>
+                        <div class="form-group">
+                            <input type="reset" class="btn btn-outline-secondary" style="margin-left:10px;"
+                                value="      Reset     ">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="card" style="margin-left: 10rem;" id="" *ngIf="addVendorForm">
+            <div class="card-header">
+                <h4>Add Subcenter</h4>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST" [formGroup]="vendorform" (ngSubmit)="addVendor()">
+                    <div class="form-group">
+                        <input type="text" formControlName="vendorName" id="vendorNameId" class="form-control"
+                            placeholder="Vendor Name">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" formControlName="block" id="blockId" class="form-control"
+                                    placeholder="Block">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="number" formControlName="pinCode" id="pinCodeId" class="form-control"
+                                    placeholder="Pin Code">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-outline-primary" style="margin-left:10px;"
+                                value="Add Subcenters">
+                        </div>
+                        <div class="form-group">
+                            <input type="reset" class="btn btn-outline-secondary" style="margin-left:10px;"
+                                value="      Reset     ">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="card" style="margin-left: 10rem;" id="" *ngIf="showUserDataTable">
+            <div class="card-header">
+                <h4>User List</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <th>SrNo</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone No</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Role</th>
+                        <th>Hospital</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of allUsersList;index as i">
+                            <td>{{i+1}}</td>
+                            <td>{{user.userName}}</td>
+                            <td>{{user.userEmail}}</td>
+                            <td>{{user.phoneNo}}</td>
+                            <td>{{user.age}}</td>
+                            <td>{{user.gender}}</td>
+                            <td>{{user.userRole}}</td>
+                            <td>{{user.vendorName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+        <div class="card" style="margin-left: 10rem;" id="" *ngIf="viewReportCard">
+            <div class="card-header">
+                <h4>Daily Report</h4>
+            </div>
+            <div class="card-body">
+                <form action="" method="GET" [formGroup]="reportForm" (ngSubmit)="generateReport()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Start Date</h5>
+                            <div class="form-group">
+                                <input type="date" formControlName="startDate" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>End Date</h5>
+                            <div class="form-group">
+                                <input type="date" formControlName="endDate" class="form-control">
+                            </div>
+                        </div>
+                    </div><br><br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="vendorId" class="form-control" id="userRoleId">
+                                    <option *ngFor="let subcenter of subcenters; let i = index"
+                                        [value]="subcenters[i].vendorId">
+                                        {{subcenters[i].vendorName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select formControlName="doctorId" class="form-control" id="doctors">
+                                    <option *ngFor="let doctor of doctors; let i = index" [value]="doctors[i].userId">
+                                        {{doctors[i].userName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-outline-primary" style="margin-left:5rem;"
+                            value="Generate Report">
+
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+        <div style="width: 20rem; margin-left: 10rem; margin-top: 30px;" *ngIf="showPrescribedList">
+            <h3>Prescribed Patienet List</h3>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <th>SrNo</th>
+                    <th>Id </th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Phone No</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Height</th>
+                    <th>Symtoms</th>
+                    <th>Fever</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let patient of patientList;index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{patient.patId}}</td>
+                        <td>{{patient.patName}}</td>
+                        <td>{{patient.address}}</td>
+                        <td>{{patient.phoneNo}}</td>
+                        <td>{{patient.age}}</td>
+                        <td>{{patient.gender}}</td>
+                        <td>{{patient.height}}</td>
+                        <td>{{patient.symptoms}}</td>
+                        <td>{{patient.fever}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        <div class="card" style="margin-left: 10rem;" id="" *ngIf="showMedList">
+            <div class="card-header">
+                <h4>Medicines Report</h4>
+            </div>
+            <div class="card-body">
+                <form action="" method="GET" [formGroup]="medicineReportForm" (ngSubmit)="generateMedicineReport()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <p>Select Hospital</p>
+                                <select formControlName="vendorId" class="form-control" id="userRoleId">
+                                    <option *ngFor="let subcenter of subcenters; let i = index"
+                                        [value]="subcenters[i].vendorId">
+                                        {{subcenters[i].vendorName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <p>Select Doctor</p>
+                                <select formControlName="doctorId" class="form-control" id="doctors">
+                                    <option *ngFor="let doctor of doctors; let i = index" [value]="doctors[i].userId">
+                                        {{doctors[i].userName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div><br><br>
+                    <input type="submit" class="btn btn-outline-primary float-right" style="margin-left:5rem;"
+                        value="Generate Report">
+
+                </form>
+            </div>
+        </div>
+        <div *ngIf="showPrescriptionData" style="margin-top: 20px; margin-left:160px;">
+            <h3>Consumed Medicine List</h3>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <th>SrNo</th>
+                    <th>Appt Id </th>
+                    <th>MedicinesType</th>
+                    <th>MedicinesName</th>
+                    <th>Frequency</th>
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let medicine of totalConsumedMedDetails;index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{medicine.apptId}}</td>
+                        <td>{{medicine.medicineType}}</td>
+                        <td>{{medicine.medicineName}}</td>
+                        <td>{{medicine.freequency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
+
+</div>
